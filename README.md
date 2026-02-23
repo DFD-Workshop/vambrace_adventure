@@ -8,14 +8,14 @@ Welcome to a new adventure from the DFD Team. Here we aim to develop a Mandalori
 
 ## Table of content
 
-1. [License](#license)
-2. [Process and documentation](#process-and-documentation)
+- [License](#license)
+- [Process and documentation](#process-and-documentation)
 
-  1. [Why to do it? (Chapter 1 | The idea)](#why-to-do-it-chapter-1--the-idea)
-  2. [The plan (Chapter 2 | The journey)](#the-plan-chapter-2--the-journey)
-  3. [Installation and requirements (Chapter 3 | The tools)](#installation-and-requirements-chapter-3--the-tools)
+  - [Why to do it? (Chapter 1 | The idea)](#why-to-do-it-chapter-1--the-idea)
+  - [The plan (Chapter 2 | The journey)](#the-plan-chapter-2--the-journey)
+  - [Installation and requirements (Chapter 3 | The tools)](#installation-and-requirements-chapter-3--the-tools)
 
-3. dd
+- dd
 
 ## License
 
@@ -27,36 +27,25 @@ Welcome to a new adventure from the DFD Team. Here we aim to develop a Mandalori
 
 ### Installation and requirements (Chapter 3 | The tools)
 
-#### 1. Ubuntu 24.04 LTS
+#### Ubuntu 24.04 LTS
 
 Ubuntu 24.04 "Noble Numbat" is the base operating system for ORION's stack. It is the recommended distribution for ROS 2 Jazzy, as it is its primary supported platform.
-
-### Installation options
 
 | Method | When to use it |
 |---|---|
 | **Native installation** | Dedicated robot hardware or main development PC |
-| **Virtual machine (VirtualBox/VMware)** | Quick testing without compromising your current OS |
-| **WSL2 (Windows)** | Windows development with access to Linux tooling |
-| **Dual boot** | Full hardware access without giving up Windows |
+| **Virtual machine (VirtualBox/VMware)** | Quick testing for software on local setup without risks |
+| **WSL2 (Windows)** | Windows development with access to Linux tooling on a local environment |
+| **Dual boot** | Full hardware access without giving up your main operating system |
 
-### Recommended resources
+We recommend the next resources for installation:
 
 - 📺 [Install Ubuntu 24.04 from scratch (YouTube)](https://www.youtube.com/results?search_query=install+ubuntu+24.04+tutorial)
 - 📺 [Ubuntu 24.04 on VirtualBox (YouTube)](https://www.youtube.com/results?search_query=ubuntu+24.04+virtualbox+tutorial+english)
 - 📖 [Official Ubuntu documentation](https://ubuntu.com/tutorials/install-ubuntu-desktop)
 
-### Minimum requirements
 
-```
-CPU:  64-bit, dual-core 2 GHz
-RAM:  4 GB (8 GB recommended for ROS 2)
-HDD:  25 GB free (50 GB recommended)
-```
-
----
-
-## 2. Visual Studio Code
+#### Visual Studio Code
 
 VS Code is the primary editor for ORION development. Through its extensions, it covers both microcontroller firmware and ROS 2 node development in a single environment.
 
@@ -76,8 +65,6 @@ echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/keyrings/packages.microsoft
 sudo apt update && sudo apt install -y code
 ```
 
-### Recommended extensions for ORION
-
 Once VS Code is installed, search and install these extensions from the Marketplace (`Ctrl+Shift+X`):
 
 | Extension | Purpose |
@@ -90,11 +77,9 @@ Once VS Code is installed, search and install these extensions from the Marketpl
 
 ---
 
-## 3. PlatformIO
+#### PlatformIO
 
 PlatformIO is the development ecosystem for ORION's microcontroller firmware. It integrates directly as a VS Code extension.
-
-### Installation
 
 PlatformIO is installed as a VS Code extension:
 
@@ -104,8 +89,6 @@ PlatformIO is installed as a VS Code extension:
 4. Click **Install**
 
 PlatformIO will automatically install its core (PlatformIO Core) and all required dependencies on first use.
-
-### Verification
 
 Once installed, verify the environment is working correctly:
 
@@ -117,27 +100,10 @@ pio --version
 # PlatformIO Core, version X.X.X
 ```
 
-### ORION project configuration
-
-The `platformio.ini` file at the project root defines the compilation target:
-
-```ini
-[env:orion_mcu]
-platform = espressif32        ; adjust according to your microcontroller
-board = esp32dev              ; or the corresponding board
-framework = arduino
-monitor_speed = 115200
-```
-
-> 💡 **Note:** The micro-ROS integration is configured in step 6.
-
----
-
-## 4. ROS 2 Jazzy Jalisco
+#### ROS 2 Jazzy Jalisco
 
 ROS 2 Jazzy is ORION's core middleware for node communication, navigation, and HRI applications. It is the LTS version compatible with Ubuntu 24.04.
 
-### Installation
 
 ```bash
 # 1. Set up locale
@@ -167,7 +133,6 @@ sudo rosdep init
 rosdep update
 ```
 
-### Environment setup
 
 ```bash
 # Add the source to .bashrc so it's available in every terminal session
@@ -175,7 +140,6 @@ echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
 source ~/.bashrc
 ```
 
-### Verification
 
 ```bash
 # Verify the installation with the classic demo
@@ -190,7 +154,7 @@ If you see messages like `[INFO] [talker]: Publishing: 'Hello World: X'`, ROS 2 
 
 ---
 
-## 5. Docker Engine
+#### Docker Engine
 
 Docker allows containerizing ORION's development and deployment environment, ensuring reproducibility across different development machines.
 
@@ -244,7 +208,7 @@ docker compose version
 
 ---
 
-## 6. micro-ROS
+#### micro-ROS
 
 micro-ROS extends the ROS 2 ecosystem to resource-constrained microcontrollers, enabling ORION's low-level hardware to communicate directly with ROS 2 Jazzy nodes.
 
@@ -367,5 +331,5 @@ docker pull microros/micro-ros-agent:jazzy && echo "Image available ✓"
 
 ---
 
-> **DFD Team** — Felipe · David · Danna  
+> **DFD Team** — Felipe · David · Danna
 > *Building ORION, one commit at a time.* 🤖
