@@ -86,7 +86,7 @@ if command -v code &>/dev/null; then
 
     echo ""
     echo "  Checking recommended extensions..."
-    EXTENSIONS=("ms-python.python" "ms-vscode.cpptools" "platformio.platformio-ide" "ms-vscode-remote.remote-containers" "redhat.vscode-yaml")
+    EXTENSIONS=("ms-python.python" "ms-vscode.cpptools" "platformio.platformio-ide" "ms-vscode-remote.remote-containers")
     INSTALLED_EXT=$(code --list-extensions 2>/dev/null)
     for ext in "${EXTENSIONS[@]}"; do
         if echo "$INSTALLED_EXT" | grep -qi "$ext"; then
