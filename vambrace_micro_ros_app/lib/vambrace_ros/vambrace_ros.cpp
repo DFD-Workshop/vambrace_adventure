@@ -42,15 +42,21 @@ namespace
     IPAddress agent_ip AGENT_IP_ADDRESS;
     size_t agent_port = AGENT_PORT;
 
-    void error_loop()
+    void error_loop(const char* msg)
     {
+        Serial.print("[RCCHECK FAILED] ");
+        Serial.println(msg);
+        pinMode(LED_STATUS_PIN, OUTPUT);
         while(true)
         {
+            digitalWrite(LED_STATUS_PIN, HIGH);
+            delay(100);
+            digitalWrite(LED_STATUS_PIN, LOW);
             delay(100);
         }
     }
 
-    #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){error_loop();}}
+    #define RCCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){error_loop(#fn);}}
     #define RCSOFTCHECK(fn) { rcl_ret_t temp_rc = fn; if((temp_rc != RCL_RET_OK)){}}
 
 } // namespace
@@ -149,6 +155,9 @@ void orion_micro_ros_publish(const TeleoperationCmd& cmd)
 
     right_arm_buffer[0] = cmd.rightArm().position;
     RCSOFTCHECK(rcl_publish(&pub_right_arm, &msg_right_arm, nullptr));
+
+    msg_emotion.data = cmd.emotion();
+    RCSOFTCHECK(rcl_publish(&pub_emotion, &msg_emotion, nullptr));
 
     if(cmd.speech() != nullptr)
     {
