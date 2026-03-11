@@ -32,5 +32,5 @@ private:
     ArmPosition left_arm_{};
     ArmPosition right_arm_{};
     int32_t emotion_{0};
-    const char* speech_{nullptr};
+    char speech_[128]{};
 };

@@ -1,4 +1,5 @@
 #include "vambrace_app.hpp"
+#include <string.h>
 
 void TeleoperationCmd::setMobileBaseVelocity(const MobileBaseVelocity& cmd)
 {
@@ -22,7 +23,8 @@ void TeleoperationCmd::setEmotion(int32_t emotion_num)
 
 void TeleoperationCmd::sendSpeech(const char* txt)
 {
-    speech_= txt;
+    strncpy(speech_, txt, sizeof(speech_) - 1);
+    speech_[sizeof(speech_) - 1] = '\0';
 }
 
 const MobileBaseVelocity& TeleoperationCmd::mobileBaseVelocity() const { return mobile_base_; }

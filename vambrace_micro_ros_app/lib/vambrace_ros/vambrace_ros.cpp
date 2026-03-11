@@ -38,8 +38,7 @@ namespace
     double left_arm_buffer[1];
     double right_arm_buffer[1];
 
-    // If planning to use WiFi transport
-    IPAddress agent_ip AGENT_IP_ADDRESS;
+    IPAddress agent_ip;
     size_t agent_port = AGENT_PORT;
 
     void error_loop(const char* msg)
@@ -84,6 +83,7 @@ void orion_micro_ros_init()
     Serial.println("Vambrace ESP32 started!");
     
     // For WiFi transport
+    agent_ip.fromString(AGENT_IP_STR);
     orion_micro_ros_connect_wifi();
     set_microros_wifi_transports(WIFI_SSID, WIFI_PASS, agent_ip, agent_port);
 
@@ -159,7 +159,7 @@ void orion_micro_ros_publish(const TeleoperationCmd& cmd)
     msg_emotion.data = cmd.emotion();
     RCSOFTCHECK(rcl_publish(&pub_emotion, &msg_emotion, nullptr));
 
-    if(cmd.speech() != nullptr)
+    if(cmd.speech()[0] != '\0')
     {
         msg_tts.data.data = const_cast<char*>(cmd.speech());
         msg_tts.data.size = strlen(cmd.speech());
