@@ -60,8 +60,12 @@ namespace
 
 } // namespace
 
-void orion_micro_ros_connect_wifi()
+void vambrace_micro_ros_connect_wifi()
 {
+  WiFi.mode(WIFI_STA);
+  WiFi.disconnect(true);
+  delay(100);
+
   WiFi.begin(WIFI_SSID, WIFI_PASS);
 
   uint32_t start = millis();
@@ -75,21 +79,22 @@ void orion_micro_ros_connect_wifi()
 
   Serial.print("Connected. IP: ");
   Serial.println(WiFi.localIP());
-}
 
-void orion_micro_ros_init()
+} // vambrace_micro_ros_connect_wifi()
+
+void vambrace_micro_ros_init()
 {
     Serial.begin(115200);
     Serial.println("Vambrace ESP32 started!");
-    
+
     // For WiFi transport
     agent_ip.fromString(AGENT_IP_STR);
-    orion_micro_ros_connect_wifi();
-    set_microros_wifi_transports(WIFI_SSID, WIFI_PASS, agent_ip, agent_port);
+    vambrace_micro_ros_connect_wifi();
+    set_microros_wifi_transports(const_cast<char*>(WIFI_SSID), const_cast<char*>(WIFI_PASS), agent_ip, agent_port);
 
     // For serial transport:
     // set_microros_serial_transports(Serial);
-    
+
     delay(2000);
 
     allocator = rcl_get_default_allocator();
@@ -142,9 +147,9 @@ void orion_micro_ros_init()
 
     RCCHECK(rclc_executor_init(&executor, &support.context, 0, &allocator));
 
-} // orion_micro_ros_init()
+} // vambrace_micro_ros_init()
 
-void orion_micro_ros_publish(const TeleoperationCmd& cmd)
+void vambrace_micro_ros_publish(const TeleoperationCmd& cmd)
 {
     msg_cmd_vel.twist.linear.x = cmd.mobileBaseVelocity().linear_x;
     msg_cmd_vel.twist.angular.z = cmd.mobileBaseVelocity().angular_z;
@@ -166,9 +171,9 @@ void orion_micro_ros_publish(const TeleoperationCmd& cmd)
         msg_tts.data.capacity = msg_tts.data.size + 1;
         RCSOFTCHECK(rcl_publish(&pub_tts, &msg_tts, nullptr));
     }
-} // orion_micro_ros_publish()
+} // vambrace_micro_ros_publish()
 
-void orion_micro_ros_spin(uint32_t timeout_ms)
+void vambrace_micro_ros_spin(uint32_t timeout_ms)
 {
     RCSOFTCHECK(rclc_executor_spin_some(&executor, RCL_MS_TO_NS(timeout_ms)));
 }

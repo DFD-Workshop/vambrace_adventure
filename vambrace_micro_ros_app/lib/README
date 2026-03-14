@@ -1,46 +1,78 @@
+# Vambrace Adventure — Project Libraries
 
-This directory is intended for project specific (private) libraries.
-PlatformIO will compile them to static libraries and link into the executable file.
+This directory contains the private libraries for the Vambrace firmware.
+PlatformIO compiles them as static libraries and links them into the final executable.
 
-The source code of each library should be placed in a separate directory
-("lib/your_library_name/[Code]").
+Each library lives in its own subdirectory with a `.hpp`/`.cpp` pair.
 
-For example, see the structure of the following example libraries `Foo` and `Bar`:
+---
 
-|--lib
-|  |
-|  |--Bar
-|  |  |--docs
-|  |  |--examples
-|  |  |--src
-|  |     |- Bar.c
-|  |     |- Bar.h
-|  |  |- library.json (optional. for custom build options, etc) https://docs.platformio.org/page/librarymanager/config.html
-|  |
-|  |--Foo
-|  |  |- Foo.c
-|  |  |- Foo.h
-|  |
-|  |- README --> THIS FILE
-|
-|- platformio.ini
-|--src
-   |- main.c
+## Current Structure
 
-Example contents of `src/main.c` using Foo and Bar:
-```
-#include <Foo.h>
-#include <Bar.h>
-
-int main (void)
-{
-  ...
-}
-
+```plaintext
+lib/
+├── vambrace_app/
+│   ├── vambrace_app.hpp      # TeleoperationCmd class and associated structs
+│   └── vambrace_app.cpp      # Setters and getters implementation
+│
+├── vambrace_ros/
+│   ├── vambrace_ros.hpp      # Public function declarations for the ROS layer
+│   └── vambrace_ros.cpp      # Init, publish and spin over WiFi UDP
+│
+├── vambrace_config/
+│   └── vambrace_config.hpp   # ROS 2 topic names, status LED pin
+│
+├── vambrace_secret/
+│   ├── vambrace_secret.hpp      # SSID, password, agent IP and port (gitignored)
+│   └── vambrace_secret_ex.hpp   # Example template for new contributors
+│
+└── README                    # This file
 ```
 
-The PlatformIO Library Dependency Finder will find automatically dependent
-libraries by scanning project source files.
+---
 
-More information about PlatformIO Library Dependency Finder
-- https://docs.platformio.org/page/librarymanager/ldf.html
+## Library Responsibilities
+
+### `vambrace_app` — Teleoperation Data Model
+
+- Defines all data the bracelet can send to ORION.
+- No hardware or ROS dependencies — testable in native environment.
+
+  - **Structs:** `MobileBaseVelocity`, `ArmPosition`
+  - **Core class:** `TeleoperationCmd`
+
+### `vambrace_ros` — micro-ROS Communication Layer
+
+- Connects the ESP32 to the micro-ROS agent via WiFi UDP.
+- Initializes the ROS 2 node and 5 publishers.
+- Publishes `TeleoperationCmd` data on every loop cycle.
+
+- **Depends on:** `vambrace_app`, `vambrace_config`, `vambrace_secret`
+
+### `vambrace_config` — Configuration Constants
+
+- Centralizes topic names and configuration constants.
+- Never hardcode these values in any other file.
+
+### `vambrace_secret` — Network Credentials
+
+> **NEVER** commit `vambrace_secret.hpp` — it is listed in `.gitignore`.
+
+- To configure: copy `vambrace_secret_ex.hpp` → `vambrace_secret.hpp` and fill in your actual network credentials.
+
+---
+
+## Published Topics (verified against ORION)
+
+| Topic | Type |
+| --- | --- |
+| `/mobile_base_controller/cmd_vel` | `geometry_msgs/msg/TwistStamped` |
+| `/simple_left_arm_controller/cmd` | `std_msgs/msg/Float64MultiArray` |
+| `/simple_right_arm_controller/cmd` | `std_msgs/msg/Float64MultiArray` |
+| `/emotion/int` | `std_msgs/msg/Int32` |
+| `/orion_response` | `std_msgs/msg/String` |
+
+---
+
+More information about the PlatformIO Library Dependency Finder:
+<https://docs.platformio.org/page/librarymanager/ldf.html>

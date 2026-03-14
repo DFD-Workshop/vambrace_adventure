@@ -6,12 +6,12 @@ TeleoperationCmd vambrace_cmds;
 
 void setup()
 {
-    orion_micro_ros_init();
+    vambrace_micro_ros_init();
 }
 
 void loop()
 {
-    orion_micro_ros_publish(vambrace_cmds);
-    orion_micro_ros_spin(10);
+    vambrace_micro_ros_publish(vambrace_cmds);
+    vambrace_micro_ros_spin(10);
     delay(20);
 }
