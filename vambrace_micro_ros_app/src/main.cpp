@@ -7,6 +7,8 @@ TeleoperationCmd vambrace_cmds;
 void setup()
 {
     vambrace_micro_ros_init();
+    Serial.print("Free heap before executor: ");
+    Serial.println(esp_get_free_heap_size());
 }
 
 void loop()

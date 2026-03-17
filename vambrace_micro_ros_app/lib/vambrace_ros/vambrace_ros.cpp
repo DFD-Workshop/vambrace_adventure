@@ -145,7 +145,7 @@ void vambrace_micro_ros_init()
     msg_right_arm.data.size = 1;
     msg_right_arm.data.capacity = 1;
 
-    RCCHECK(rclc_executor_init(&executor, &support.context, 0, &allocator));
+    RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
 
 } // vambrace_micro_ros_init()
 
