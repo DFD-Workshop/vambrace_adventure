@@ -60,7 +60,7 @@ Run these in order on a clean Ubuntu 24.04 installation.
 ~~~bash
 # Clone the repository
 git clone https://github.com/DFD-Workshop/vambrace_adventure.git
-cd vambrace_adventure/tools/installation
+cd vambrace_adventure/docs/installation
 
 # Make scripts executable
 chmod +x *.bash
@@ -171,7 +171,7 @@ brew uninstall --cask multipass     # macOS
 | Tool | Documentation |
 | - | - |
 | Ubuntu 24.04 | [Ubuntu Docs](https://ubuntu.com/tutorials/install-ubuntu-desktop) |
-| Visual Studio Code | [VS Code Docs(https://code.visualstudio.com/docs/setup/linux) |
+| Visual Studio Code | [VS Code Docs](https://code.visualstudio.com/docs/setup/linux) |
 | PlatformIO | [PlatformIO Docs](https://docs.platformio.org/en/latest/core/installation/index.html) |
 | ROS 2 Jazzy | [ROS 2 Docs](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html) |
 | Docker Engine | [Docker Docs](https://docs.docker.com/engine/install/ubuntu/) |

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # =============================================================================
 #  ORION — Chapter 3: The Tools
-#  Script 03 — PlatformIO
+#  Script 02 — PlatformIO
 # =============================================================================
 #
 #  SOURCE / OFFICIAL DOCUMENTATION:
@@ -94,7 +94,7 @@ else
         echo " Restart VS Code to activate the extension."
     else
         echo " VS Code (code) not found in PATH."
-        echo " Please run 01_vscode_install.sh first, then re-run this script."
+        echo " Please run 01_vscode_install.bash first, then re-run this script."
         exit 1
     fi
 fi
@@ -108,5 +108,5 @@ echo "   board = esp32dev"
 echo "   framework = arduino"
 echo "   monitor_speed = 115200"
 echo ""
-echo " Next step → 04_ros2_jazzy.sh"
+echo " Next step → 03_ros2_jazzy_install.bash"
 echo ""

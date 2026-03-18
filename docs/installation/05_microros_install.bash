@@ -70,7 +70,7 @@ if [[ "$method" =~ ^[Bb]$ ]]; then
             source /opt/ros/jazzy/setup.bash
             echo "  ROS 2 Jazzy sourced."
         else
-            echo " ROS 2 Jazzy not found. Please run 04_ros2_jazzy.sh first."
+            echo " ROS 2 Jazzy not found. Please run 03_ros2_jazzy_install.bash first."
             exit 1
         fi
     else
@@ -107,6 +107,8 @@ if [[ "$method" =~ ^[Bb]$ ]]; then
     ros2 run micro_ros_setup build_agent.sh
     source install/local_setup.bash
 
+    echo "  [5/5] Created and built the micro-ROS Agent workspace..."
+
     echo ""
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo " ✅ micro-ROS Agent built from source!"
@@ -124,7 +126,7 @@ else
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
     if ! command -v docker &>/dev/null; then
-        echo " Docker not found. Please run 05_docker.sh first."
+        echo " Docker not found. Please run 05_docker_install.bash first."
         exit 1
     fi
 

@@ -70,7 +70,7 @@ http://packages.ros.org/ros2/ubuntu $(. /etc/os-release && echo $UBUNTU_CODENAME
 
 echo ""
 echo "  [3/5] Installing ROS 2 Jazzy Desktop (full)..."
-sudo apt update && sudo apt upgrade -y
+sudo apt update
 sudo apt install -y ros-jazzy-desktop
 
 echo ""
@@ -107,5 +107,5 @@ echo " Verify with the classic talker/listener demo:"
 echo "   Terminal 1: ros2 run demo_nodes_cpp talker"
 echo "   Terminal 2: ros2 run demo_nodes_py listener"
 echo ""
-echo " Next step → 04_docker.sh"
+echo " Next step → 04_docker_install.bash"
 echo ""

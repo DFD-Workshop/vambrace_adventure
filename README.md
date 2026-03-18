@@ -53,6 +53,8 @@ We're documenting this adventure in episodic format. Check out the [**Wiki**](..
 - **Membrane Keyboard** — Quick actions & emotions
 - **LEDs & Buttons** — Feedback and additional controls
 
+More details will be given as the adventure goes on.
+
 ### Software
 
 - **Ubuntu 24.04 LTS** — Development OS

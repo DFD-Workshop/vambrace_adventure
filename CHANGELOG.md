@@ -1,4 +1,8 @@
-# Binnacle for ChangeLog
+# Bitácora | ChangeLog
+
+## Mar. 18 2026
+
+- Fixing items mentioned in PR of chapter 3, mostly related to broken links and format errors.
 
 ## Mar. 10 2026
 

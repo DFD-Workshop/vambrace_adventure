@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # =============================================================================
 #  ORION — Chapter 3: The Tools
-#  Script 07 — Full Environment Validation
+#  Script 06 — Full Environment Validation
 # =============================================================================
 #
 #  SOURCE / OFFICIAL DOCUMENTATION:
@@ -96,7 +96,7 @@ if command -v code &>/dev/null; then
         fi
     done
 else
-    result FAIL "VS Code not found" "Run: 02_vscode.sh"
+    result FAIL "VS Code not found" "Run: 01_vs_code_install.bash"
 fi
 echo ""
 
@@ -133,7 +133,7 @@ fi
 if [ -f /opt/ros/jazzy/setup.bash ]; then
     result PASS "ROS 2 Jazzy install" "/opt/ros/jazzy/setup.bash found"
 else
-    result FAIL "ROS 2 Jazzy not found" "Run: 04_ros2_jazzy.sh"
+    result FAIL "ROS 2 Jazzy not found" "Run: 04_ros2_jazzy_install.bash"
 fi
 
 if command -v ros2 &>/dev/null; then
@@ -186,7 +186,7 @@ if command -v docker &>/dev/null; then
         result WARN "Docker Compose plugin missing" "Run: sudo apt install docker-compose-plugin"
     fi
 else
-    result FAIL "Docker not found" "Run: 05_docker.sh"
+    result FAIL "Docker not found" "Run: 05_docker.bash"
 fi
 echo ""
 
@@ -246,7 +246,7 @@ else
     echo -e "  ${RED}Some tools are missing. Run the corresponding install scripts.${RESET}"
     echo ""
     echo "  Install order:"
-    echo "    01_vscode_install.sh → 02_platformio_install.sh"
-    echo "    → 04_ros2_jazzy_install.sh → 05_docker_install.sh → 06_microros_install.sh"
+    echo "    01_vscode_install.bash → 02_platformio_install.bash"
+    echo "    → 03_ros2_jazzy_install.bash → 04_docker_install.bash → 05_microros_install.bash"
 fi
 echo ""
