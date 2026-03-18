@@ -86,7 +86,7 @@ This guide covers:
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/vambrace-adventure.git
+git clone https://github.com/DFD-Workshop/vambrace_adventure.git
 cd vambrace-adventure
 
 # Follow the installation guide
