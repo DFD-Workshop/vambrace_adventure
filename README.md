@@ -8,6 +8,7 @@
 
 - ✅ Episode 4 content and implementation
 - ✅ Core ESP32 firmware development with µ-ROS
+- ✅ Wiki notes on usage and micro-ROS explanation
 
 **What's Next:**
 

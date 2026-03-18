@@ -1,5 +1,18 @@
 # Binnacle for ChangeLog
 
+## Mar. 16 2026
+
+- Fixing executor problem
+- Adding a small debug on available memory
+
+## Mar. 4 2026
+
+- Updates on WiFI connection and deployment over WiFi on UDP with micro-ROS
+
+## Mar. 11 2026
+
+- Changing management of strings and buffers
+
 ## Mar. 10 2026
 
 ### Part 1
