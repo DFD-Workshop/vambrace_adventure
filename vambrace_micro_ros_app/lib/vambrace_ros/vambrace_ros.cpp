@@ -149,7 +149,7 @@ void vambrace_micro_ros_init()
 
 } // vambrace_micro_ros_init()
 
-void vambrace_micro_ros_publish(const TeleoperationCmd& cmd)
+void vambrace_micro_ros_publish(TeleoperationCmd& cmd)
 {
     msg_cmd_vel.twist.linear.x = cmd.mobileBaseVelocity().linear_x;
     msg_cmd_vel.twist.angular.z = cmd.mobileBaseVelocity().angular_z;
@@ -170,6 +170,7 @@ void vambrace_micro_ros_publish(const TeleoperationCmd& cmd)
         msg_tts.data.size = strlen(cmd.speech());
         msg_tts.data.capacity = msg_tts.data.size + 1;
         RCSOFTCHECK(rcl_publish(&pub_tts, &msg_tts, nullptr));
+        cmd.clearSpeech();
     }
 } // vambrace_micro_ros_publish()
 

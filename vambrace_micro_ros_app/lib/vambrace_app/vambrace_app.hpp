@@ -20,6 +20,7 @@ public:
     void setRightArm(const ArmPosition& cmd);
     void setEmotion(int32_t emotion_num);
     void sendSpeech(const char* txt);
+    void clearSpeech();
 
     const MobileBaseVelocity& mobileBaseVelocity() const;
     const ArmPosition& leftArm() const;
@@ -31,6 +32,6 @@ private:
     MobileBaseVelocity mobile_base_{};
     ArmPosition left_arm_{};
     ArmPosition right_arm_{};
-    int32_t emotion_{0};
+    int32_t emotion_{4};
     char speech_[128]{};
 };

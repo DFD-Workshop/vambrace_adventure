@@ -36,3 +36,5 @@ const ArmPosition& TeleoperationCmd::rightArm() const { return right_arm_; }
 int32_t TeleoperationCmd::emotion() const { return emotion_; }
 
 const char* TeleoperationCmd::speech() const { return speech_; }
+
+void TeleoperationCmd::clearSpeech() { speech_[0] = '\0'; }
