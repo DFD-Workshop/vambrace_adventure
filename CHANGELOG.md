@@ -1,5 +1,9 @@
 # Bitácora | ChangeLog
 
+## Mar. 19 2026
+
+- Adding the base implementation of the joystick to control cmd_vel of the robot.
+
 ## Mar. 18 2026
 
 ### Part 1

@@ -151,7 +151,12 @@ void vambrace_micro_ros_init()
 
 void vambrace_micro_ros_publish(TeleoperationCmd& cmd)
 {
-    msg_cmd_vel.twist.linear.x = cmd.mobileBaseVelocity().linear_x;
+    msg_cmd_vel.header.stamp.sec     = (int32_t)(millis() / 1000);
+    msg_cmd_vel.header.stamp.nanosec = (uint32_t)((millis() % 1000) * 1000000UL);
+    msg_cmd_vel.header.frame_id.data     = const_cast<char*>("base_link");
+    msg_cmd_vel.header.frame_id.size     = strlen("base_link");
+    msg_cmd_vel.header.frame_id.capacity = msg_cmd_vel.header.frame_id.size + 1;
+    msg_cmd_vel.twist.linear.x  = cmd.mobileBaseVelocity().linear_x;
     msg_cmd_vel.twist.angular.z = cmd.mobileBaseVelocity().angular_z;
     RCSOFTCHECK(rcl_publish(&pub_cmd_vel, &msg_cmd_vel, nullptr));
 
