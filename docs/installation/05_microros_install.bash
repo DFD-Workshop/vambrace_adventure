@@ -126,7 +126,7 @@ else
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
     if ! command -v docker &>/dev/null; then
-        echo " Docker not found. Please run 05_docker_install.bash first."
+        echo " Docker not found. Please run 04_docker_install.bash first."
         exit 1
     fi
 

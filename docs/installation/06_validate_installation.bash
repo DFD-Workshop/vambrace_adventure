@@ -54,7 +54,7 @@ result() {
 
 echo ""
 echo "╔══════════════════════════════════════════════════════════════╗"
-echo "║         ORION Stack — Step 07: Environment Validation        ║"
+echo "║              Installation -  Environment Validation          ║"
 echo "╚══════════════════════════════════════════════════════════════╝"
 echo ""
 echo " Checking all tools required to build and run ORION..."
@@ -186,7 +186,7 @@ if command -v docker &>/dev/null; then
         result WARN "Docker Compose plugin missing" "Run: sudo apt install docker-compose-plugin"
     fi
 else
-    result FAIL "Docker not found" "Run: 05_docker.bash"
+    result FAIL "Docker not found" "Run: 05_docker_install.bash"
 fi
 echo ""
 

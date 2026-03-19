@@ -93,5 +93,5 @@ echo ""
 docker --version
 docker compose version
 echo ""
-echo " Next step → 05_microros_install.sh"
+echo " Next step → 05_microros_install.bash"
 echo ""

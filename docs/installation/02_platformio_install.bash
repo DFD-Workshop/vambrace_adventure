@@ -94,7 +94,7 @@ else
         echo " Restart VS Code to activate the extension."
     else
         echo " VS Code (code) not found in PATH."
-        echo " Please run 01_vscode_install.bash first, then re-run this script."
+        echo " Please run 01_vs_code_install.bash first, then re-run this script."
         exit 1
     fi
 fi

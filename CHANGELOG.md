@@ -10,6 +10,10 @@
 
 - Fixing merge conflict over readme and change log
 
+### Part 3
+
+- Solving comments mentioned on Pr about format, micro-ROS debug and pending clear process of string / chars.
+
 ## Mar. 16 2026
 
 - Fixing executor problem
@@ -22,7 +26,6 @@
 ## Mar. 11 2026
 
 - Changing management of strings and buffers
-
 
 ## Mar. 10 2026
 
