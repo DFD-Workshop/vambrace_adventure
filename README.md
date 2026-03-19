@@ -148,16 +148,17 @@ This is an **open-source adventure**, but contributions guidelines and notes on 
 
 ### Current Phase: Episode 4 — In Development
 
-**What's Working:**
+**What's in development:**
 
-- ✅ Project documentation and wiki structure
-- ✅ Installation guides for the full development
-- ✅ Conceptual design and roadmap
+- ✅ Episode 4 content and implementation
+- ✅ Core ESP32 firmware development with µ-ROS
+- ✅ Wiki notes on usage and micro-ROS explanation
 
 **What's Next:**
 
-- 🚧 Episode 4 content and implementation
-- 🚧 Core ESP32 firmware development with µ-ROS
+- 🚧 Episode 5 content and implementation
+- 🚧 Notes about joystick usage and integration
+- 🚧  Considering demo of the project
 
 ---
 
