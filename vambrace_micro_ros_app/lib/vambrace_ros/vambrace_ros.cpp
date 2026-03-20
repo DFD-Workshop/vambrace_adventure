@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <micro_ros_platformio.h>
 #include <WiFi.h>
+#include <sys/time.h>
 
 #include <rcl/rcl.h>
 #include <rclc/rclc.h>
@@ -80,6 +81,19 @@ void vambrace_micro_ros_connect_wifi()
   Serial.print("Connected. IP: ");
   Serial.println(WiFi.localIP());
 
+  // Sync ESP32 clock via NTP
+  configTime(0, 0, "pool.ntp.org");
+  Serial.print("Waiting for NTP sync...");
+  uint32_t ntp_start = millis();
+  struct tm timeinfo;
+  while (!getLocalTime(&timeinfo, 100)) {
+    if (millis() - ntp_start > 10000) {
+      Serial.println(" NTP sync timeout — timestamps will use millis() fallback");
+      return;
+    }
+  }
+  Serial.println(" NTP synced!");
+
 } // vambrace_micro_ros_connect_wifi()
 
 void vambrace_micro_ros_init()
@@ -151,10 +165,12 @@ void vambrace_micro_ros_init()
 
 void vambrace_micro_ros_publish(TeleoperationCmd& cmd)
 {
-    msg_cmd_vel.header.stamp.sec     = (int32_t)(millis() / 1000);
-    msg_cmd_vel.header.stamp.nanosec = (uint32_t)((millis() % 1000) * 1000000UL);
-    msg_cmd_vel.header.frame_id.data     = const_cast<char*>("base_link");
-    msg_cmd_vel.header.frame_id.size     = strlen("base_link");
+    struct timeval tv;
+    gettimeofday(&tv, NULL);
+    msg_cmd_vel.header.stamp.sec     = (int32_t)tv.tv_sec;
+    msg_cmd_vel.header.stamp.nanosec = (uint32_t)(tv.tv_usec * 1000);
+    msg_cmd_vel.header.frame_id.data     = const_cast<char*>("teleop_twist_joy");
+    msg_cmd_vel.header.frame_id.size     = strlen("teleop_twist_joy");
     msg_cmd_vel.header.frame_id.capacity = msg_cmd_vel.header.frame_id.size + 1;
     msg_cmd_vel.twist.linear.x  = cmd.mobileBaseVelocity().linear_x;
     msg_cmd_vel.twist.angular.z = cmd.mobileBaseVelocity().angular_z;
