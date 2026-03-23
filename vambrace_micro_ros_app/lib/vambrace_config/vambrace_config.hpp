@@ -19,8 +19,9 @@
 #define JOY_DEADZONE    200           // raw ADC units around center
 #define JOY_CENTER      2048          // center value for 12-bit ADC
 #define JOY_MAX         2048          // max deviation from center (4095 - 2048 ≈ 2048 - 0)
-#define MAX_LINEAR_VEL  2.0f          // m/s
-#define MAX_ANGULAR_VEL 4.0f          // rad/s
+#define MAX_LINEAR_VEL  1.0f          // m/s
+#define MAX_ANGULAR_VEL 2.0f          // rad/s
+#define JOY_SPRINT_GAIN 2.0f          // speed multiplier when button pressed
 
 // Update intervals (ms)
 #define JOY_INTERVAL_MS 50            // 20 Hz

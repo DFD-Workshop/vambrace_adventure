@@ -1,5 +1,21 @@
 # Bitácora | ChangeLog
 
+## Mar. 23 2026
+
+- Adding a "sprint" to have a low and high velocity control like a videogame.
+
+## Mar. 20 2026
+
+### Part 1
+
+- Fixing timestamp based on UTC rather than local milis and added correct TF for joystick real implementation.
+
+### Part 2
+
+- Improving deadzone management and drift errors.
+
+### Part 2
+
 ## Mar. 19 2026
 
 - Adding the base implementation of the joystick to control cmd_vel of the robot.
