@@ -44,7 +44,7 @@ namespace
 
         // VRy controls forward/backward linear velocity
         // VRx controls left/right angular velocity (negated: stick right = turn right = negative z)
-        float linear_x  =  normalize(raw_y, joy_center_y) * MAX_LINEAR_VEL * gain;
+        float linear_x  = -normalize(raw_y, joy_center_y) * MAX_LINEAR_VEL * gain;
         float angular_z = -normalize(raw_x, joy_center_x) * MAX_ANGULAR_VEL * gain;
 
         return {linear_x, angular_z};

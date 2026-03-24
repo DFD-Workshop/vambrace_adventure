@@ -1,5 +1,9 @@
 # Bitácora | ChangeLog
 
+## Mar. 24 2026
+
+- Fine tuning params for movement on both linear and angular dimension, and gains.
+
 ## Mar. 23 2026
 
 - Adding a "sprint" to have a low and high velocity control like a videogame.
