@@ -39,7 +39,10 @@ We're documenting this adventure in episodic format. Check out the [**Wiki**](..
 | 1 | [The Journey](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-1-the-journey) | ✅ Complete | [Watch](https://youtube.com/shorts/TBTaS4n26_s) | [Ver](https://youtube.com/shorts/fl2nujOGEQM) |
 | 2 | [The Comms](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-2-the-comms) | ✅ Complete | [Watch](https://youtube.com/shorts/PWvRbeZY11s) | [Ver](https://youtube.com/shorts/rVv_rLJkVis) |
 | 3 | [The Tools](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-3-the-tools) | ✅ Complete | [Watch](https://youtube.com/shorts/s-ULhCpa5D4) | [Ver](https://youtube.com/shorts/_yhIwWnUc2I) |
-| 4 | [The node](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-4-the-node) | 🚧 In Progress | TBD | TBD |
+| 4 | [The node](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-4-the-node) | ✅ Complete | [Watch](https://youtube.com/shorts/yXBNjODGA5o) | [Ver](https://youtube.com/shorts/4m8zHiZVZdo) |
+| 5 | [The joystick](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-4-the-node) | 🚧 In Progress | TBD | TBD |
+| 6 | [The potentiometer](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-4-the-node) | 🚧 Planned | TBD | TBD |
+
 
 ---
 
