@@ -1,5 +1,9 @@
 # Bitácora | ChangeLog
 
+## Mar. 25 2026
+
+- Deleting un-required comments and updating README file.
+
 ## Mar. 24 2026
 
 - Fine tuning params for movement on both linear and angular dimension, and gains.

@@ -150,15 +150,14 @@ This is an **open-source adventure**, but contributions guidelines and notes on 
 
 **What's in development:**
 
-- ✅ Episode 4 content and implementation
-- ✅ Core ESP32 firmware development with µ-ROS
-- ✅ Wiki notes on usage and micro-ROS explanation
+- ✅ Episode 5 content and implementation.
+- ✅ Implementation of joystick and robot movement.
+- ✅ Wiki notes on the joystick and explanation
 
 **What's Next:**
 
-- 🚧 Episode 5 content and implementation
-- 🚧 Notes about joystick usage and integration
-- 🚧  Considering demo of the project
+- 🚧 Episode 6 content and implementation
+- 🚧 Notes about potentiometer usage and integration
 
 ---
 

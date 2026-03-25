@@ -11,8 +11,6 @@ namespace
 
     constexpr int CALIBRATION_SAMPLES = 32;
 
-    // Maps a raw ADC value to a normalized float in [-1.0, 1.0].
-    // Values within the deadzone around center are clamped to 0.
     float normalize(int raw, int center)
     {
         int centered = raw - center;
@@ -29,21 +27,8 @@ namespace
         int raw_x = analogRead(JOY_X_PIN);
         int raw_y = analogRead(JOY_Y_PIN);
 
-        // DEBUG: raw ADC values and calibrated centers
-        Serial.print("RAW x=");
-        Serial.print(raw_x);
-        Serial.print(" y=");
-        Serial.print(raw_y);
-        Serial.print(" | CENTER x=");
-        Serial.print(joy_center_x);
-        Serial.print(" y=");
-        Serial.println(joy_center_y);
-
-        // Sprint: press joystick button to go faster
         float gain = (digitalRead(JOY_BTN_PIN) == LOW) ? JOY_SPRINT_GAIN : 1.0f;
 
-        // VRy controls forward/backward linear velocity
-        // VRx controls left/right angular velocity (negated: stick right = turn right = negative z)
         float linear_x  = -normalize(raw_y, joy_center_y) * MAX_LINEAR_VEL * gain;
         float angular_z = -normalize(raw_x, joy_center_x) * MAX_ANGULAR_VEL * gain;
 
