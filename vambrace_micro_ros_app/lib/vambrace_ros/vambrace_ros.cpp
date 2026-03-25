@@ -39,6 +39,8 @@ namespace
     double left_arm_buffer[1];
     double right_arm_buffer[1];
 
+    char frame_id_str[] = "teleop_twist_joy";
+
     IPAddress agent_ip;
     size_t agent_port = AGENT_PORT;
 
@@ -159,6 +161,10 @@ void vambrace_micro_ros_init()
     msg_right_arm.data.size = 1;
     msg_right_arm.data.capacity = 1;
 
+    msg_cmd_vel.header.frame_id.data     = frame_id_str;
+    msg_cmd_vel.header.frame_id.size     = sizeof(frame_id_str) - 1;
+    msg_cmd_vel.header.frame_id.capacity = sizeof(frame_id_str);
+
     RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
 
 } // vambrace_micro_ros_init()
@@ -169,9 +175,6 @@ void vambrace_micro_ros_publish(TeleoperationCmd& cmd)
     gettimeofday(&tv, NULL);
     msg_cmd_vel.header.stamp.sec     = (int32_t)tv.tv_sec;
     msg_cmd_vel.header.stamp.nanosec = (uint32_t)(tv.tv_usec * 1000);
-    msg_cmd_vel.header.frame_id.data     = const_cast<char*>("teleop_twist_joy");
-    msg_cmd_vel.header.frame_id.size     = strlen("teleop_twist_joy");
-    msg_cmd_vel.header.frame_id.capacity = msg_cmd_vel.header.frame_id.size + 1;
     msg_cmd_vel.twist.linear.x  = cmd.mobileBaseVelocity().linear_x;
     msg_cmd_vel.twist.angular.z = cmd.mobileBaseVelocity().angular_z;
     RCSOFTCHECK(rcl_publish(&pub_cmd_vel, &msg_cmd_vel, nullptr));

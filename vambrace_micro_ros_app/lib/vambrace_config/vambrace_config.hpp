@@ -10,18 +10,20 @@
 // Status LED
 #define LED_STATUS_PIN  23
 
-// Joystick pins (ADC1 only — ADC2 conflicts with WiFi)
-#define JOY_X_PIN       34    // VRx — ADC1_CH6, input-only
-#define JOY_Y_PIN       35    // VRy — ADC1_CH7, input-only
-#define JOY_BTN_PIN     32    // SW  — digital, INPUT_PULLUP
+// Joystick pins
+#define JOY_X_PIN       34
+#define JOY_Y_PIN       35
+#define JOY_BTN_PIN     32
 
 // Joystick parameters
-#define JOY_DEADZONE    200           // raw ADC units around center
-#define JOY_CENTER      2048          // center value for 12-bit ADC
-#define JOY_MAX         2048          // max deviation from center (4095 - 2048 ≈ 2048 - 0)
-#define MAX_LINEAR_VEL  0.75f          // m/s
-#define MAX_ANGULAR_VEL 0.75f          // rad/s
-#define JOY_SPRINT_GAIN 2.0f          // speed multiplier when button pressed
+#define JOY_DEADZONE    200
+#define JOY_CENTER      2048
+#define JOY_MAX         2048
+#define MAX_LINEAR_VEL          0.75f          // m/s — normal mode
+#define MAX_ANGULAR_VEL         0.75f          // rad/s — normal mode
+#define MAX_LINEAR_VEL_SPRINT   1.5f           // m/s — sprint cap
+#define MAX_ANGULAR_VEL_SPRINT  1.5f           // rad/s — sprint cap
+#define JOY_SPRINT_GAIN         2.0f           // speed multiplier when button pressed
 
 // Update intervals (ms)
-#define JOY_INTERVAL_MS 50            // 20 Hz
+#define JOY_INTERVAL_MS 50

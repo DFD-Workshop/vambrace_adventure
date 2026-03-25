@@ -27,10 +27,12 @@ namespace
         int raw_x = analogRead(JOY_X_PIN);
         int raw_y = analogRead(JOY_Y_PIN);
 
-        float gain = (digitalRead(JOY_BTN_PIN) == LOW) ? JOY_SPRINT_GAIN : 1.0f;
+        bool sprinting = (digitalRead(JOY_BTN_PIN) == LOW);
+        float max_lin = sprinting ? MAX_LINEAR_VEL_SPRINT : MAX_LINEAR_VEL;
+        float max_ang = sprinting ? MAX_ANGULAR_VEL_SPRINT : MAX_ANGULAR_VEL;
 
-        float linear_x  = -normalize(raw_y, joy_center_y) * MAX_LINEAR_VEL * gain;
-        float angular_z = -normalize(raw_x, joy_center_x) * MAX_ANGULAR_VEL * gain;
+        float linear_x  = -normalize(raw_y, joy_center_y) * max_lin;
+        float angular_z = -normalize(raw_x, joy_center_x) * max_ang;
 
         return {linear_x, angular_z};
     }
