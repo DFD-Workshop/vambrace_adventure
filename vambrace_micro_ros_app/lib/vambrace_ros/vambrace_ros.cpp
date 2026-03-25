@@ -4,6 +4,7 @@
 #include <micro_ros_platformio.h>
 #include <WiFi.h>
 #include <sys/time.h>
+#include <string.h>
 
 #include <rcl/rcl.h>
 #include <rclc/rclc.h>
@@ -38,6 +39,7 @@ namespace
 
     double left_arm_buffer[1];
     double right_arm_buffer[1];
+    char tts_buffer[128];
 
     char frame_id_str[] = "teleop_twist_joy";
 
@@ -198,8 +200,10 @@ void vambrace_micro_ros_publish(TeleoperationCmd& cmd)
 
     if(cmd.speech()[0] != '\0')
     {
-        msg_tts.data.data = const_cast<char*>(cmd.speech());
-        msg_tts.data.size = strlen(cmd.speech());
+        strncpy(tts_buffer, cmd.speech(), sizeof(tts_buffer) - 1);
+        tts_buffer[sizeof(tts_buffer) - 1] = '\0';
+        msg_tts.data.data = tts_buffer;
+        msg_tts.data.size = strlen(tts_buffer);
         msg_tts.data.capacity = msg_tts.data.size + 1;
         RCSOFTCHECK(rcl_publish(&pub_tts, &msg_tts, nullptr));
         cmd.clearSpeech();
