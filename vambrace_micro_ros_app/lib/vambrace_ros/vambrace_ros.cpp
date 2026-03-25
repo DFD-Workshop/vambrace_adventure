@@ -3,6 +3,8 @@
 #include <Arduino.h>
 #include <micro_ros_platformio.h>
 #include <WiFi.h>
+#include <sys/time.h>
+#include <string.h>
 
 #include <rcl/rcl.h>
 #include <rclc/rclc.h>
@@ -37,6 +39,11 @@ namespace
 
     double left_arm_buffer[1];
     double right_arm_buffer[1];
+    char tts_buffer[128];
+
+    char frame_id_str[] = "teleop_twist_joy";
+
+    bool ntp_synced = false;
 
     IPAddress agent_ip;
     size_t agent_port = AGENT_PORT;
@@ -79,6 +86,20 @@ void vambrace_micro_ros_connect_wifi()
 
   Serial.print("Connected. IP: ");
   Serial.println(WiFi.localIP());
+
+  // Sync ESP32 clock via NTP
+  configTime(0, 0, "pool.ntp.org");
+  Serial.print("Waiting for NTP sync...");
+  uint32_t ntp_start = millis();
+  struct tm timeinfo;
+  while (!getLocalTime(&timeinfo, 100)) {
+    if (millis() - ntp_start > 10000) {
+      Serial.println(" NTP sync timeout — timestamps will use millis() fallback");
+      return;
+    }
+  }
+  ntp_synced = true;
+  Serial.println(" NTP synced!");
 
 } // vambrace_micro_ros_connect_wifi()
 
@@ -145,13 +166,26 @@ void vambrace_micro_ros_init()
     msg_right_arm.data.size = 1;
     msg_right_arm.data.capacity = 1;
 
+    msg_cmd_vel.header.frame_id.data     = frame_id_str;
+    msg_cmd_vel.header.frame_id.size     = sizeof(frame_id_str) - 1;
+    msg_cmd_vel.header.frame_id.capacity = sizeof(frame_id_str);
+
     RCCHECK(rclc_executor_init(&executor, &support.context, 1, &allocator));
 
 } // vambrace_micro_ros_init()
 
 void vambrace_micro_ros_publish(TeleoperationCmd& cmd)
 {
-    msg_cmd_vel.twist.linear.x = cmd.mobileBaseVelocity().linear_x;
+    if (ntp_synced) {
+        struct timeval tv;
+        gettimeofday(&tv, NULL);
+        msg_cmd_vel.header.stamp.sec     = (int32_t)tv.tv_sec;
+        msg_cmd_vel.header.stamp.nanosec = (uint32_t)(tv.tv_usec * 1000);
+    } else {
+        msg_cmd_vel.header.stamp.sec     = 0;
+        msg_cmd_vel.header.stamp.nanosec = 0;
+    }
+    msg_cmd_vel.twist.linear.x  = cmd.mobileBaseVelocity().linear_x;
     msg_cmd_vel.twist.angular.z = cmd.mobileBaseVelocity().angular_z;
     RCSOFTCHECK(rcl_publish(&pub_cmd_vel, &msg_cmd_vel, nullptr));
 
@@ -166,8 +200,10 @@ void vambrace_micro_ros_publish(TeleoperationCmd& cmd)
 
     if(cmd.speech()[0] != '\0')
     {
-        msg_tts.data.data = const_cast<char*>(cmd.speech());
-        msg_tts.data.size = strlen(cmd.speech());
+        strncpy(tts_buffer, cmd.speech(), sizeof(tts_buffer) - 1);
+        tts_buffer[sizeof(tts_buffer) - 1] = '\0';
+        msg_tts.data.data = tts_buffer;
+        msg_tts.data.size = strlen(tts_buffer);
         msg_tts.data.capacity = msg_tts.data.size + 1;
         RCSOFTCHECK(rcl_publish(&pub_tts, &msg_tts, nullptr));
         cmd.clearSpeech();
