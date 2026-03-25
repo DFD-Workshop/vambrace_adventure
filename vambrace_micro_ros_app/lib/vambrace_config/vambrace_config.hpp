@@ -18,7 +18,7 @@
 // Joystick parameters
 #define JOY_DEADZONE    200
 #define JOY_CENTER      2048
-#define JOY_MAX         2048
+#define JOY_MAX_DEVIATION         2048
 #define MAX_LINEAR_VEL          0.75f          // m/s — normal mode
 #define MAX_ANGULAR_VEL         0.75f          // rad/s — normal mode
 #define MAX_LINEAR_VEL_SPRINT   1.5f           // m/s — sprint cap

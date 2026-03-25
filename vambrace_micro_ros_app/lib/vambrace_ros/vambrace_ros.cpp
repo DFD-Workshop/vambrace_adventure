@@ -41,6 +41,8 @@ namespace
 
     char frame_id_str[] = "teleop_twist_joy";
 
+    bool ntp_synced = false;
+
     IPAddress agent_ip;
     size_t agent_port = AGENT_PORT;
 
@@ -94,6 +96,7 @@ void vambrace_micro_ros_connect_wifi()
       return;
     }
   }
+  ntp_synced = true;
   Serial.println(" NTP synced!");
 
 } // vambrace_micro_ros_connect_wifi()
@@ -171,10 +174,15 @@ void vambrace_micro_ros_init()
 
 void vambrace_micro_ros_publish(TeleoperationCmd& cmd)
 {
-    struct timeval tv;
-    gettimeofday(&tv, NULL);
-    msg_cmd_vel.header.stamp.sec     = (int32_t)tv.tv_sec;
-    msg_cmd_vel.header.stamp.nanosec = (uint32_t)(tv.tv_usec * 1000);
+    if (ntp_synced) {
+        struct timeval tv;
+        gettimeofday(&tv, NULL);
+        msg_cmd_vel.header.stamp.sec     = (int32_t)tv.tv_sec;
+        msg_cmd_vel.header.stamp.nanosec = (uint32_t)(tv.tv_usec * 1000);
+    } else {
+        msg_cmd_vel.header.stamp.sec     = 0;
+        msg_cmd_vel.header.stamp.nanosec = 0;
+    }
     msg_cmd_vel.twist.linear.x  = cmd.mobileBaseVelocity().linear_x;
     msg_cmd_vel.twist.angular.z = cmd.mobileBaseVelocity().angular_z;
     RCSOFTCHECK(rcl_publish(&pub_cmd_vel, &msg_cmd_vel, nullptr));

@@ -3,6 +3,8 @@
 #include <Arduino.h>
 #include "vambrace_config.hpp"
 
+// NOTE: Mutable file-scope state assumes single-threaded Arduino loop.
+// If migrating to FreeRTOS tasks, protect with a mutex.
 namespace
 {
     uint32_t last_joy_ms = 0;
@@ -18,8 +20,8 @@ namespace
 
         int sign         = (centered > 0) ? 1 : -1;
         int adjusted     = abs(centered) - JOY_DEADZONE;
-        int usable_range = JOY_MAX - JOY_DEADZONE;
-        return sign * (float)adjusted / (float)usable_range;
+        int usable_range = JOY_MAX_DEVIATION - JOY_DEADZONE;
+        return (float)sign * (float)adjusted / (float)usable_range;
     }
 
     MobileBaseVelocity read_joystick()
@@ -53,6 +55,13 @@ void vambrace_hardware_init()
     }
     joy_center_x = sum_x / CALIBRATION_SAMPLES;
     joy_center_y = sum_y / CALIBRATION_SAMPLES;
+
+    if (abs(joy_center_x - 2048) > 500 || abs(joy_center_y - 2048) > 500)
+    {
+        Serial.println("WARNING: Joystick center far from expected. Was the stick touched during boot?");
+        joy_center_x = JOY_CENTER;
+        joy_center_y = JOY_CENTER;
+    }
 
     Serial.print("Joystick calibrated: center_x=");
     Serial.print(joy_center_x);
