@@ -25,5 +25,15 @@
 #define MAX_ANGULAR_VEL_SPRINT  1.5f           // rad/s — sprint cap
 #define JOY_SPRINT_GAIN         2.0f           // speed multiplier when button pressed
 
+// Potentiometer pins (ADC1 only — ADC2 conflicts with WiFi)
+#define POT_LEFT_ARM_PIN    33    // ADC1_CH5
+#define POT_RIGHT_ARM_PIN   36    // ADC1_CH0, input-only
+
+// Arm position limits (radians)
+#define ARM_LOWER_LIMIT    -1.0472f          // -pi/3
+#define ARM_UPPER_LIMIT     1.0472f          //  pi/3
+#define POT_ADC_MAX         4095             // 12-bit ADC
+
 // Update intervals (ms)
 #define JOY_INTERVAL_MS 50
+#define POT_INTERVAL_MS 50

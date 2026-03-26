@@ -8,6 +8,7 @@
 namespace
 {
     uint32_t last_joy_ms = 0;
+    uint32_t last_pot_ms = 0;
     int joy_center_x = JOY_CENTER;
     int joy_center_y = JOY_CENTER;
 
@@ -22,6 +23,11 @@ namespace
         int adjusted     = abs(centered) - JOY_DEADZONE;
         int usable_range = JOY_MAX_DEVIATION - JOY_DEADZONE;
         return (float)sign * (float)adjusted / (float)usable_range;
+    }
+
+    float map_pot_to_arm(int raw)
+    {
+        return ARM_LOWER_LIMIT + ((float)raw / (float)POT_ADC_MAX) * (ARM_UPPER_LIMIT - ARM_LOWER_LIMIT);
     }
 
     MobileBaseVelocity read_joystick()
@@ -78,5 +84,12 @@ void vambrace_hardware_update(TeleoperationCmd& cmd)
     {
         last_joy_ms = now;
         cmd.setMobileBaseVelocity(read_joystick());
+    }
+
+    if (now - last_pot_ms >= POT_INTERVAL_MS)
+    {
+        last_pot_ms = now;
+        cmd.setLeftArm({map_pot_to_arm(analogRead(POT_LEFT_ARM_PIN))});
+        cmd.setRightArm({map_pot_to_arm(analogRead(POT_RIGHT_ARM_PIN))});
     }
 }
