@@ -25,6 +25,16 @@ namespace
         return (float)sign * (float)adjusted / (float)usable_range;
     }
 
+    int read_pot_avg(int pin)
+    {
+        long sum = 0;
+        sum += analogRead(pin);
+        sum += analogRead(pin);
+        sum += analogRead(pin);
+        sum += analogRead(pin);
+        return (int)(sum >> 2);
+    }
+
     float map_pot_to_arm(int raw)
     {
         return ARM_LOWER_LIMIT + ((float)raw / (float)POT_ADC_MAX) * (ARM_UPPER_LIMIT - ARM_LOWER_LIMIT);
@@ -89,7 +99,7 @@ void vambrace_hardware_update(TeleoperationCmd& cmd)
     if (now - last_pot_ms >= POT_INTERVAL_MS)
     {
         last_pot_ms = now;
-        cmd.setLeftArm({map_pot_to_arm(analogRead(POT_LEFT_ARM_PIN))});
-        cmd.setRightArm({map_pot_to_arm(analogRead(POT_RIGHT_ARM_PIN))});
+        cmd.setLeftArm({-map_pot_to_arm(read_pot_avg(POT_LEFT_ARM_PIN))});
+        cmd.setRightArm({map_pot_to_arm(read_pot_avg(POT_RIGHT_ARM_PIN))});
     }
 }
