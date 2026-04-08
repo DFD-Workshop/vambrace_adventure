@@ -1,5 +1,17 @@
 # Bitácora | ChangeLog
 
+## Apr. 3 2026
+
+- Reverting on e of the arms position and fixing limits to improve teleoperation
+
+## Mar. 30 2026
+
+- Correction of topics after reviewing against the robot
+
+## Mar. 26 2026
+
+- Including base structure and functions for potentiometer readings
+
 ## Mar. 25 2026
 
 - Deleting un-required comments and updating README file.
