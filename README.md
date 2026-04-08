@@ -41,8 +41,8 @@ We're documenting this adventure in episodic format. Check out the [**Wiki**](..
 | 3 | [The Tools](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-3-the-tools) | ✅ Complete | [Watch](https://youtube.com/shorts/s-ULhCpa5D4) | [Ver](https://youtube.com/shorts/_yhIwWnUc2I) |
 | 4 | [The node](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-4-the-node) | ✅ Complete | [Watch](https://youtube.com/shorts/yXBNjODGA5o) | [Ver](https://youtube.com/shorts/4m8zHiZVZdo) |
 | 5 | [The joystick](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-4-the-node) | ✅ Complete | [Watch](https://youtube.com/shorts/pt6MXLPrA1o?feature=share) | [Ver](https://youtube.com/shorts/jUR-owbl1EM?feature=share) |
-| 6 | [The potentiometer](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-6-the-potentiometer) | 🚧 Planned | TBD | TBD |
-
+| 6 | [The potentiometer](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-4-the-node) | 🚧 In Progress | TBD | TBD |
+| 7 | [The emotions](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-7-the-emotions) | 🚧 Planned | TBD | TBD |
 
 ---
 
@@ -149,19 +149,21 @@ This is an **open-source adventure**, but contributions guidelines and notes on 
 
 ## 📋 Project Status
 
-### Current Phase: Episode 4 — In Development
+### Current Phase: Episode 6 — In Development
 
 **What's in development:**
 
-- ✅ Episode 5 content and implementation.
-- ✅ Implementation of joystick and robot movement.
+- ✅ Episode 6 content and implementation.
+- ✅ Implementation of potentiometer and arms movement.
 - ✅ Wiki notes on the joystick and explanation
+- ✅ Overall formatting of the Wiki
 
 **What's Next:**
 
-- 🚧 Episode 6 content and implementation
-- 🚧 Notes about potentiometer usage and integration on the Wiki
-- 🚧 Short about the development
+- 🚧 Episode 7 content and implementation
+- 🚧 Notes about membrane keyboard usage and integration
+- 🚧 Communication related with the emotions displayed on the ORION's screen
+
 
 ---
 

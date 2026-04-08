@@ -8,6 +8,7 @@
 namespace
 {
     uint32_t last_joy_ms = 0;
+    uint32_t last_pot_ms = 0;
     int joy_center_x = JOY_CENTER;
     int joy_center_y = JOY_CENTER;
 
@@ -22,6 +23,21 @@ namespace
         int adjusted     = abs(centered) - JOY_DEADZONE;
         int usable_range = JOY_MAX_DEVIATION - JOY_DEADZONE;
         return (float)sign * (float)adjusted / (float)usable_range;
+    }
+
+    constexpr int POT_AVG_SAMPLES = 4;
+
+    int read_pot_avg(int pin)
+    {
+        long sum = 0;
+        for (int i = 0; i < POT_AVG_SAMPLES; i++) sum += analogRead(pin);
+        return (int)(sum / POT_AVG_SAMPLES);
+    }
+
+    float map_pot_to_arm(int raw)
+    {
+        int clamped = constrain(raw, 0, POT_ADC_MAX);
+        return ARM_LOWER_LIMIT + ((float)clamped / (float)POT_ADC_MAX) * (ARM_UPPER_LIMIT - ARM_LOWER_LIMIT);
     }
 
     MobileBaseVelocity read_joystick()
@@ -78,5 +94,15 @@ void vambrace_hardware_update(TeleoperationCmd& cmd)
     {
         last_joy_ms = now;
         cmd.setMobileBaseVelocity(read_joystick());
+    }
+
+    if (now - last_pot_ms >= POT_INTERVAL_MS)
+    {
+        last_pot_ms = now;
+
+        // REading of the pot. are inverted to grant that moving it to
+        // the right rise the arms, and to the left to descend arms.
+        cmd.setLeftArm({-map_pot_to_arm(read_pot_avg(POT_LEFT_ARM_PIN))});
+        cmd.setRightArm({map_pot_to_arm(read_pot_avg(POT_RIGHT_ARM_PIN))});
     }
 }
