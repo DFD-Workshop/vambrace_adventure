@@ -195,7 +195,17 @@ void vambrace_micro_ros_publish(TeleoperationCmd& cmd)
     right_arm_buffer[0] = cmd.rightArm().position;
     RCSOFTCHECK(rcl_publish(&pub_right_arm, &msg_right_arm, nullptr));
 
-    msg_emotion.data = cmd.emotion();
+    // Keypad keys '1'–'8' map to emotion indices 0–7.
+    // Keys outside this range are ignored in Ep. 7.
+    if (cmd.keypress() >= '1' && cmd.keypress() <= '8')
+    {
+        msg_emotion.data = cmd.keypress() - '1';
+        cmd.clearKeypress();
+    }
+    else
+    {
+        msg_emotion.data = cmd.emotion();
+    }
     RCSOFTCHECK(rcl_publish(&pub_emotion, &msg_emotion, nullptr));
 
     if(cmd.speech()[0] != '\0')

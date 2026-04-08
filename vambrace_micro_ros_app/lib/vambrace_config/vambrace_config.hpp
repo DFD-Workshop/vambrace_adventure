@@ -34,6 +34,22 @@
 #define ARM_UPPER_LIMIT     1.0472f
 #define POT_ADC_MAX         4095
 
+// 4x4 Membrane keypad pins
+// Row pins (OUTPUT)
+#define KEYPAD_ROW0_PIN     5
+#define KEYPAD_ROW1_PIN    18
+#define KEYPAD_ROW2_PIN    19
+#define KEYPAD_ROW3_PIN    21
+// Column pins (INPUT_PULLUP)
+#define KEYPAD_COL0_PIN    17
+#define KEYPAD_COL1_PIN    16
+#define KEYPAD_COL2_PIN     4
+#define KEYPAD_COL3_PIN     2
+
+// Keypad parameters
+#define KEYPAD_DEBOUNCE_MS  50    // minimum ms between valid keypresses
+#define KEYPAD_INTERVAL_MS 100    // 10 Hz scan rate
+
 // Update intervals (ms)
 #define JOY_INTERVAL_MS 50
 #define POT_INTERVAL_MS 50

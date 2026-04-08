@@ -7,8 +7,10 @@
 // If migrating to FreeRTOS tasks, protect with a mutex.
 namespace
 {
-    uint32_t last_joy_ms = 0;
-    uint32_t last_pot_ms = 0;
+    uint32_t last_joy_ms     = 0;
+    uint32_t last_pot_ms     = 0;
+    uint32_t last_keypad_ms  = 0;
+    uint32_t last_keypress_ms = 0;
     int joy_center_x = JOY_CENTER;
     int joy_center_y = JOY_CENTER;
 
@@ -40,6 +42,40 @@ namespace
         return ARM_LOWER_LIMIT + ((float)clamped / (float)POT_ADC_MAX) * (ARM_UPPER_LIMIT - ARM_LOWER_LIMIT);
     }
 
+    // Keypad layout (4x4 membrane):
+    // [ 1 ][ 2 ][ 3 ][ A ]
+    // [ 4 ][ 5 ][ 6 ][ B ]
+    // [ 7 ][ 8 ][ 9 ][ C ]
+    // [ * ][ 0 ][ # ][ D ]
+    const char KEYPAD_MAP[4][4] = {
+        {'1', '2', '3', 'A'},
+        {'4', '5', '6', 'B'},
+        {'7', '8', '9', 'C'},
+        {'*', '0', '#', 'D'}
+    };
+
+    const uint8_t KEYPAD_ROWS[4] = {KEYPAD_ROW0_PIN, KEYPAD_ROW1_PIN, KEYPAD_ROW2_PIN, KEYPAD_ROW3_PIN};
+    const uint8_t KEYPAD_COLS[4] = {KEYPAD_COL0_PIN, KEYPAD_COL1_PIN, KEYPAD_COL2_PIN, KEYPAD_COL3_PIN};
+
+    // Scans the keypad matrix and returns the pressed key, or '\0' if none.
+    char scan_keypad()
+    {
+        for (int row = 0; row < 4; row++)
+        {
+            digitalWrite(KEYPAD_ROWS[row], LOW);
+            for (int col = 0; col < 4; col++)
+            {
+                if (digitalRead(KEYPAD_COLS[col]) == LOW)
+                {
+                    digitalWrite(KEYPAD_ROWS[row], HIGH);
+                    return KEYPAD_MAP[row][col];
+                }
+            }
+            digitalWrite(KEYPAD_ROWS[row], HIGH);
+        }
+        return '\0';
+    }
+
     MobileBaseVelocity read_joystick()
     {
         int raw_x = analogRead(JOY_X_PIN);
@@ -60,6 +96,13 @@ namespace
 void vambrace_hardware_init()
 {
     pinMode(JOY_BTN_PIN, INPUT_PULLUP);
+
+    for (int i = 0; i < 4; i++)
+    {
+        pinMode(KEYPAD_ROWS[i], OUTPUT);
+        digitalWrite(KEYPAD_ROWS[i], HIGH);
+        pinMode(KEYPAD_COLS[i], INPUT_PULLUP);
+    }
 
     long sum_x = 0;
     long sum_y = 0;
@@ -100,9 +143,22 @@ void vambrace_hardware_update(TeleoperationCmd& cmd)
     {
         last_pot_ms = now;
 
-        // REading of the pot. are inverted to grant that moving it to
-        // the right rise the arms, and to the left to descend arms.
+        // Left arm negated: ORION's left/right servos have opposite Z-axis orientation.
+        // Negating ensures clockwise rotation on both pots raises the corresponding arm.
         cmd.setLeftArm({-map_pot_to_arm(read_pot_avg(POT_LEFT_ARM_PIN))});
         cmd.setRightArm({map_pot_to_arm(read_pot_avg(POT_RIGHT_ARM_PIN))});
+    }
+
+    if (now - last_keypad_ms >= KEYPAD_INTERVAL_MS)
+    {
+        last_keypad_ms = now;
+        char key = scan_keypad();
+        if (key != '\0' && (now - last_keypress_ms) >= KEYPAD_DEBOUNCE_MS)
+        {
+            last_keypress_ms = now;
+            cmd.setKeypress(key);
+            Serial.print("Keypad: ");
+            Serial.println(key);
+        }
     }
 }

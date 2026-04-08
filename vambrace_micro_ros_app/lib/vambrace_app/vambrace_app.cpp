@@ -38,3 +38,7 @@ int32_t TeleoperationCmd::emotion() const { return emotion_; }
 const char* TeleoperationCmd::speech() const { return speech_; }
 
 void TeleoperationCmd::clearSpeech() { speech_[0] = '\0'; }
+
+void TeleoperationCmd::setKeypress(char key) { keypress_ = key; }
+void TeleoperationCmd::clearKeypress()       { keypress_ = '\0'; }
+char TeleoperationCmd::keypress() const      { return keypress_; }
