@@ -42,11 +42,6 @@ namespace
         return ARM_LOWER_LIMIT + ((float)clamped / (float)POT_ADC_MAX) * (ARM_UPPER_LIMIT - ARM_LOWER_LIMIT);
     }
 
-    // Keypad layout (4x4 membrane):
-    // [ 1 ][ 2 ][ 3 ][ A ]
-    // [ 4 ][ 5 ][ 6 ][ B ]
-    // [ 7 ][ 8 ][ 9 ][ C ]
-    // [ * ][ 0 ][ # ][ D ]
     const char KEYPAD_MAP[4][4] = {
         {'1', '2', '3', 'A'},
         {'4', '5', '6', 'B'},
@@ -57,7 +52,6 @@ namespace
     const uint8_t KEYPAD_ROWS[4] = {KEYPAD_ROW0_PIN, KEYPAD_ROW1_PIN, KEYPAD_ROW2_PIN, KEYPAD_ROW3_PIN};
     const uint8_t KEYPAD_COLS[4] = {KEYPAD_COL0_PIN, KEYPAD_COL1_PIN, KEYPAD_COL2_PIN, KEYPAD_COL3_PIN};
 
-    // Scans the keypad matrix and returns the pressed key, or '\0' if none.
     char scan_keypad()
     {
         for (int row = 0; row < 4; row++)
@@ -157,8 +151,10 @@ void vambrace_hardware_update(TeleoperationCmd& cmd)
         {
             last_keypress_ms = now;
             cmd.setKeypress(key);
-            Serial.print("Keypad: ");
-            Serial.println(key);
+
+            // Uncomment in case you need to validate keys pressed:
+            // Serial.print("Keypad: ");
+            // Serial.println(key);
         }
     }
 }

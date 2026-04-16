@@ -35,32 +35,18 @@
 #define POT_ADC_MAX         4095
 
 // 4x4 Membrane keypad pins
-// Row pins (OUTPUT) — module pins 1–4
-#define KEYPAD_ROW0_PIN    21     // module pin 1 → membrane row 0 (1 2 3 A)
-#define KEYPAD_ROW1_PIN    19     // module pin 2 → membrane row 1 (4 5 6 B)
-#define KEYPAD_ROW2_PIN    18     // module pin 3 → membrane row 2 (7 8 9 C)
-#define KEYPAD_ROW3_PIN     5     // module pin 4 → membrane row 3 (* 0 # D)
-// Column pins (INPUT_PULLUP) — module pins 5–8
-#define KEYPAD_COL0_PIN    13     // module pin 5 → membrane col 0 (1 4 7 *)
-#define KEYPAD_COL1_PIN    14     // module pin 6 → membrane col 1 (2 5 8 0)
-#define KEYPAD_COL2_PIN    25     // module pin 7 → membrane col 2 (3 6 9 #)
-#define KEYPAD_COL3_PIN    26     // module pin 8 → membrane col 3 (A B C D)
+#define KEYPAD_ROW0_PIN    21
+#define KEYPAD_ROW1_PIN    19
+#define KEYPAD_ROW2_PIN    18
+#define KEYPAD_ROW3_PIN     5
+#define KEYPAD_COL0_PIN    13
+#define KEYPAD_COL1_PIN    14
+#define KEYPAD_COL2_PIN    25
+#define KEYPAD_COL3_PIN    26
 
 // Keypad parameters
-#define KEYPAD_DEBOUNCE_MS  50    // minimum ms between valid keypresses
-#define KEYPAD_INTERVAL_MS 100    // 10 Hz scan rate
-
-// Toggle buttons (INPUT_PULLUP)
-#define BTN_CMD_VEL_PIN     16    // Toggle cmd_vel publishing
-#define BTN_LEFT_ARM_PIN    17    // Toggle left arm publishing
-#define BTN_RIGHT_ARM_PIN   22    // Toggle right arm publishing
-#define BTN_KEYPAD_PIN      23    // Toggle keypad publishing
-
-// LEDs (OUTPUT)
-#define LED_CMD_VEL_PIN      0    // ON = cmd_vel active  (brief flicker at boot)
-#define LED_LEFT_ARM_PIN    12    // ON = left arm active
-#define LED_RIGHT_ARM_PIN   27    // ON = right arm active
-#define LED_KEYPAD_PIN      15    // ON = keypad active
+#define KEYPAD_DEBOUNCE_MS  50
+#define KEYPAD_INTERVAL_MS 100
 
 // Update intervals (ms)
 #define JOY_INTERVAL_MS 50
