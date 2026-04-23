@@ -41,7 +41,7 @@ We're documenting this adventure in episodic format. Check out the [**Wiki**](..
 | 3 | [The Tools](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-3-the-tools) | ✅ Complete | [Watch](https://youtube.com/shorts/s-ULhCpa5D4) | [Ver](https://youtube.com/shorts/_yhIwWnUc2I) |
 | 4 | [The node](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-4-the-node) | ✅ Complete | [Watch](https://youtube.com/shorts/yXBNjODGA5o) | [Ver](https://youtube.com/shorts/4m8zHiZVZdo) |
 | 5 | [The joystick](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-4-the-node) | ✅ Complete | [Watch](https://youtube.com/shorts/pt6MXLPrA1o?feature=share) | [Ver](https://youtube.com/shorts/jUR-owbl1EM?feature=share) |
-| 6 | [The potentiometer](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-4-the-node) | 🚧 In Progress | TBD | TBD |
+| 6 | [The potentiometer](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-4-the-node) | ✅ Complete | [Watch](https://youtube.com/shorts/4BC47FxFEvA?feature=share) | [Ver](https://youtube.com/shorts/onuhb8-ZH10?feature=share) |
 | 7 | [The emotions](https://github.com/DFD-Workshop/vambrace_adventure/wiki/episode-7-the-emotions) | 🚧 Planned | TBD | TBD |
 
 ---
