@@ -1,5 +1,9 @@
 # Bitácora | ChangeLog
 
+## May. 5 2026
+
+- Updating velocity params to match recent changes to ORION Common packages.
+
 ## Apr. 16 2026
 
 - Updating wiki for emotions and verifying code before proceeding with PR for emotions.

@@ -153,16 +153,15 @@ This is an **open-source adventure**, but contributions guidelines and notes on 
 
 **What's in development:**
 
-- ✅ Episode 6 content and implementation.
-- ✅ Implementation of potentiometer and arms movement.
-- ✅ Wiki notes on the joystick and explanation
-- ✅ Overall formatting of the Wiki
+- ✅ Episode 7 content and implementation.
+- ✅ Implementation of numeric keys of the membrane keypad.
+- ✅ Wiki notes on the keypad membrane
 
 **What's Next:**
 
-- 🚧 Episode 7 content and implementation
-- 🚧 Notes about membrane keyboard usage and integration
-- 🚧 Communication related with the emotions displayed on the ORION's screen
+- 🚧 Episode 8 content and implementation
+- 🚧 Notes about membrane keyboard usage and integration of actions
+- 🚧 Communication related with the default / manual actions with the keypad.
 
 
 ---

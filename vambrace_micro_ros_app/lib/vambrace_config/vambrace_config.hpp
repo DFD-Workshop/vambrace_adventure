@@ -19,10 +19,10 @@
 #define JOY_DEADZONE    200
 #define JOY_CENTER      2048
 #define JOY_MAX_DEVIATION         2048
-#define MAX_LINEAR_VEL          0.75f
-#define MAX_ANGULAR_VEL         0.75f
-#define MAX_LINEAR_VEL_SPRINT   1.5f
-#define MAX_ANGULAR_VEL_SPRINT  1.5f
+#define MAX_LINEAR_VEL          0.28f
+#define MAX_ANGULAR_VEL         0.5f
+#define MAX_LINEAR_VEL_SPRINT   0.33f
+#define MAX_ANGULAR_VEL_SPRINT  1.0f
 #define JOY_SPRINT_GAIN         2.0f
 
 // Potentiometer pins (ADC1 only — ADC2 conflicts with WiFi)
