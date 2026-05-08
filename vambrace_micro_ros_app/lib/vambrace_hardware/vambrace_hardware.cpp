@@ -11,6 +11,7 @@ namespace
     uint32_t last_pot_ms     = 0;
     uint32_t last_keypad_ms  = 0;
     uint32_t last_keypress_ms = 0;
+    char     last_scanned_key = '\0';
     int joy_center_x = JOY_CENTER;
     int joy_center_y = JOY_CENTER;
 
@@ -41,13 +42,6 @@ namespace
         int clamped = constrain(raw, 0, POT_ADC_MAX);
         return ARM_LOWER_LIMIT + ((float)clamped / (float)POT_ADC_MAX) * (ARM_UPPER_LIMIT - ARM_LOWER_LIMIT);
     }
-
-    const char KEYPAD_MAP[4][4] = {
-        {'1', '2', '3', 'A'},
-        {'4', '5', '6', 'B'},
-        {'7', '8', '9', 'C'},
-        {'*', '0', '#', 'D'}
-    };
 
     const uint8_t KEYPAD_ROWS[4] = {KEYPAD_ROW0_PIN, KEYPAD_ROW1_PIN, KEYPAD_ROW2_PIN, KEYPAD_ROW3_PIN};
     const uint8_t KEYPAD_COLS[4] = {KEYPAD_COL0_PIN, KEYPAD_COL1_PIN, KEYPAD_COL2_PIN, KEYPAD_COL3_PIN};
@@ -147,14 +141,20 @@ void vambrace_hardware_update(TeleoperationCmd& cmd)
     {
         last_keypad_ms = now;
         char key = scan_keypad();
-        if (key != '\0' && (now - last_keypress_ms) >= KEYPAD_DEBOUNCE_MS)
-        {
-            last_keypress_ms = now;
-            cmd.setKeypress(key);
 
-            // Uncomment in case you need to validate keys pressed:
-            // Serial.print("Keypad: ");
-            // Serial.println(key);
+        if (key != last_scanned_key)
+        {
+            last_scanned_key = key;
+            if (key != '\0' && (now - last_keypress_ms) >= KEYPAD_DEBOUNCE_MS)
+            {
+                // Anti-ghosting: confirm the same key reads stable after 5ms.
+                delayMicroseconds(5000);
+                if (scan_keypad() == key)
+                {
+                    last_keypress_ms = now;
+                    cmd.setKeypress(key);
+                }
+            }
         }
     }
 }

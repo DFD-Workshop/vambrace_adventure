@@ -48,6 +48,13 @@ namespace
     IPAddress agent_ip;
     size_t agent_port = AGENT_PORT;
 
+    // Keys '1'–'8' map to emotion indices 0–7 (ASCII offset). Returns -1 for unmapped keys.
+    int8_t keypress_to_emotion(char key)
+    {
+        if (key >= '1' && key <= '8') return key - '1';
+        return -1;
+    }
+
     void error_loop(const char* msg)
     {
         Serial.print("[RCCHECK FAILED] ");
@@ -196,13 +203,15 @@ void vambrace_micro_ros_publish(TeleoperationCmd& cmd)
     RCSOFTCHECK(rcl_publish(&pub_right_arm, &msg_right_arm, nullptr));
 
     // Emotion is an event — only publish when a new key is pressed.
-    // Keypad keys '1'–'8' map to emotion indices 0–7.
-    // Keys outside this range are ignored in Ep. 7.
-    if (cmd.keypress() >= '1' && cmd.keypress() <= '8')
+    // Keys outside '1'–'8' are not mapped in Ep. 7 (reserved for macros in Ep. 8).
     {
-        msg_emotion.data = cmd.keypress() - '1';
-        RCSOFTCHECK(rcl_publish(&pub_emotion, &msg_emotion, nullptr));
-        cmd.clearKeypress();
+        int8_t emotion = keypress_to_emotion(cmd.keypress());
+        if (emotion >= 0)
+        {
+            msg_emotion.data = emotion;
+            RCSOFTCHECK(rcl_publish(&pub_emotion, &msg_emotion, nullptr));
+            cmd.clearKeypress();
+        }
     }
 
     if(cmd.speech()[0] != '\0')

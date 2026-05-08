@@ -1,5 +1,9 @@
 # Bitácora | ChangeLog
 
+## May. 8 2026
+
+- Changing keypad logic by separating keypad map and implementing anti ghosting check.
+
 ## May. 5 2026
 
 - Updating velocity params to match recent changes to ORION Common packages.

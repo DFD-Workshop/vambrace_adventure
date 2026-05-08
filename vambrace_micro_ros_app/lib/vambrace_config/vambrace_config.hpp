@@ -44,9 +44,17 @@
 #define KEYPAD_COL2_PIN    25
 #define KEYPAD_COL3_PIN    26
 
+// Keypad character map — row/col index → character
+constexpr char KEYPAD_MAP[4][4] = {
+    {'1', '2', '3', 'A'},
+    {'4', '5', '6', 'B'},
+    {'7', '8', '9', 'C'},
+    {'*', '0', '#', 'D'}
+};
+
 // Keypad parameters
 #define KEYPAD_DEBOUNCE_MS  50
-#define KEYPAD_INTERVAL_MS 100
+#define KEYPAD_INTERVAL_MS  50
 
 // Update intervals (ms)
 #define JOY_INTERVAL_MS 50
