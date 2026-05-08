@@ -19,10 +19,10 @@
 #define JOY_DEADZONE    200
 #define JOY_CENTER      2048
 #define JOY_MAX_DEVIATION         2048
-#define MAX_LINEAR_VEL          0.75f
-#define MAX_ANGULAR_VEL         0.75f
-#define MAX_LINEAR_VEL_SPRINT   1.5f
-#define MAX_ANGULAR_VEL_SPRINT  1.5f
+#define MAX_LINEAR_VEL          0.28f
+#define MAX_ANGULAR_VEL         0.5f
+#define MAX_LINEAR_VEL_SPRINT   0.33f
+#define MAX_ANGULAR_VEL_SPRINT  1.0f
 #define JOY_SPRINT_GAIN         2.0f
 
 // Potentiometer pins (ADC1 only — ADC2 conflicts with WiFi)
@@ -33,6 +33,28 @@
 #define ARM_LOWER_LIMIT    -1.0472f
 #define ARM_UPPER_LIMIT     1.0472f
 #define POT_ADC_MAX         4095
+
+// 4x4 Membrane keypad pins
+#define KEYPAD_ROW0_PIN    21
+#define KEYPAD_ROW1_PIN    19
+#define KEYPAD_ROW2_PIN    18
+#define KEYPAD_ROW3_PIN     5
+#define KEYPAD_COL0_PIN    13
+#define KEYPAD_COL1_PIN    14
+#define KEYPAD_COL2_PIN    25
+#define KEYPAD_COL3_PIN    26
+
+// Keypad character map — row/col index → character
+constexpr char KEYPAD_MAP[4][4] = {
+    {'1', '2', '3', 'A'},
+    {'4', '5', '6', 'B'},
+    {'7', '8', '9', 'C'},
+    {'*', '0', '#', 'D'}
+};
+
+// Keypad parameters
+#define KEYPAD_DEBOUNCE_MS  50
+#define KEYPAD_INTERVAL_MS  50
 
 // Update intervals (ms)
 #define JOY_INTERVAL_MS 50

@@ -21,12 +21,15 @@ public:
     void setEmotion(int32_t emotion_num);
     void sendSpeech(const char* txt);
     void clearSpeech();
+    void setKeypress(char key);
+    void clearKeypress();
 
     const MobileBaseVelocity& mobileBaseVelocity() const;
     const ArmPosition& leftArm() const;
     const ArmPosition& rightArm() const;
     int32_t emotion() const;
     const char* speech() const;
+    char keypress() const;
 
 private:
     MobileBaseVelocity mobile_base_{};
@@ -34,4 +37,5 @@ private:
     ArmPosition right_arm_{};
     int32_t emotion_{4};
     char speech_[128]{};
+    char keypress_{'\0'};
 };

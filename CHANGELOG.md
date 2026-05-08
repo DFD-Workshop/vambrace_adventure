@@ -1,5 +1,25 @@
 # Bitácora | ChangeLog
 
+## May. 8 2026
+
+- Changing keypad logic by separating keypad map and implementing anti ghosting check.
+
+## May. 5 2026
+
+- Updating velocity params to match recent changes to ORION Common packages.
+
+## Apr. 16 2026
+
+- Updating wiki for emotions and verifying code before proceeding with PR for emotions.
+
+## Apr. 14 2026
+
+- Test on real robot for emotions and changes related to pinout after finding out conflicts with GPIO 2 & 4.
+
+## Apr. 9 2026
+
+- Base implementation for keypad focused on emotion integration
+
 ## Apr. 8 2026
 
 - Working on the PR to include the potentiometer.
